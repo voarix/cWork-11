@@ -11,11 +11,11 @@ const run = async () => {
   const db = mongoose.connection;
 
   try {
-    await db.dropCollection('users');
-    await db.dropCollection('categories');
-    await db.dropCollection('items');
+    await db.dropCollection("users");
+    await db.dropCollection("categories");
+    await db.dropCollection("items");
   } catch (error) {
-    console.log('Collections were not present, skipping drop');
+    console.log("Collections were not present, skipping drop");
   }
 
   const [user1, user2, user3] = await User.create(
@@ -59,7 +59,7 @@ const run = async () => {
 
   await Item.create(
     {
-      name: "iphone 16",
+      title: "iphone 16",
       description: "The latest iPhone",
       price: 1000,
       image: "fixtures/iphone-16.jpg",
@@ -67,7 +67,7 @@ const run = async () => {
       seller: user1._id,
     },
     {
-      name: "Coffee table",
+      title: "Coffee table",
       description: "Wooden table for terrace",
       price: 200,
       image: "fixtures/table.jpg",
@@ -75,7 +75,7 @@ const run = async () => {
       seller: user1._id,
     },
     {
-      name: "Samsung TV",
+      title: "Samsung TV",
       description: "55 inch Smart TV",
       price: 7000,
       image: "fixtures/samsung-tv.jpg",
@@ -83,7 +83,7 @@ const run = async () => {
       seller: user2._id,
     },
     {
-      name: "Jacket",
+      title: "Jacket",
       description: "jean jacket",
       price: 30,
       image: "fixtures/jacket.jpg",
@@ -91,7 +91,7 @@ const run = async () => {
       seller: user3._id,
     },
     {
-      name: "MacBook Pro m4 pro",
+      title: "MacBook Pro m4 pro",
       description: "Latest model, 14-inch display, 24GB RAM, 512GB SSD",
       price: 3200,
       image: "fixtures/macbook.jpg",
@@ -99,7 +99,7 @@ const run = async () => {
       seller: user2._id,
     },
     {
-      name: "Dining Table",
+      title: "Dining Table",
       description: "Wood big dining table",
       price: 1300,
       image: "fixtures/dining-table.jpg",
@@ -107,7 +107,7 @@ const run = async () => {
       seller: user3._id,
     },
     {
-      name: "Mario shoes",
+      title: "Mario shoes",
       description: "Limited edition 42 size",
       price: 798,
       image: "fixtures/mario-shoes.jpg",

@@ -4,9 +4,9 @@ import Category from "./Category";
 const Schema = mongoose.Schema;
 
 const ItemSchema = new Schema({
-  name: {
+  title: {
     type: String,
-    required: [true, "Name is required"],
+    required: [true, "Title is required"],
   },
   description: {
     type: String,

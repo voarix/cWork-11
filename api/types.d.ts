@@ -7,7 +7,7 @@ export interface UserFields {
 }
 
 export interface ItemWithoutId {
-  name: string;
+  title: string;
   description: string;
   price: number;
   image: string;

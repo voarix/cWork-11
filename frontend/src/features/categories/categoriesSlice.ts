@@ -6,16 +6,20 @@ import type { RootState } from "../../app/store.ts";
 interface CategoryState {
   categories: Category[];
   fetchLoading: boolean;
+  fetchError: boolean;
 }
 
 export const selectCategories = (state: RootState) =>
   state.categories.categories;
 export const selectCategoriesFetchLoading = (state: RootState) =>
   state.categories.fetchLoading;
+export const selectCategoriesError = (state: RootState) =>
+  state.categories.fetchError;
 
 const initialState: CategoryState = {
   categories: [],
   fetchLoading: false,
+  fetchError: true,
 };
 
 const categoriesSlice = createSlice({
@@ -26,6 +30,7 @@ const categoriesSlice = createSlice({
     builder
       .addCase(fetchAllCategories.pending, (state) => {
         state.fetchLoading = true;
+        state.fetchError = false;
       })
       .addCase(
         fetchAllCategories.fulfilled,
@@ -36,6 +41,7 @@ const categoriesSlice = createSlice({
       )
       .addCase(fetchAllCategories.rejected, (state) => {
         state.fetchLoading = false;
+        state.fetchError = true;
       });
   },
 });

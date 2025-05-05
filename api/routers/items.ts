@@ -37,7 +37,7 @@ itemsRouter.get("/:id", async (req, res, next) => {
       if (user) userId = String(user._id);
     }
 
-    const item = await Item.findById(id);
+    const item = await Item.findById(id).populate("seller", "username phoneNumber displayName").populate("category", "title");
     if (!item) {
       res.status(404).send({message: "Item not found"});
       return;

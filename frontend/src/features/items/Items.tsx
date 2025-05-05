@@ -4,6 +4,7 @@ import Categories from "../categories/Categories.tsx";
 import ItemList from "./components/ItemList.tsx";
 import {
   selectCategories,
+  selectCategoriesError,
   selectCategoriesFetchLoading,
 } from "../categories/categoriesSlice.ts";
 import Loading from "../../components/UI/Loading.tsx";
@@ -14,6 +15,8 @@ import { fetchAllItems } from "./itemsThunks.ts";
 
 const Items = () => {
   const dispatch = useAppDispatch();
+  const errorItems = useAppSelector(selectFetchItemsLoading);
+  const errorCategories = useAppSelector(selectCategoriesError);
   const items = useAppSelector(selectItems);
   const categories = useAppSelector(selectCategories);
   const { category_id } = useParams();
@@ -28,6 +31,10 @@ const Items = () => {
 
   if (categoryLoading || itemLoading) {
     return <Loading />;
+  }
+
+  if (errorItems || errorCategories) {
+    return <h1>Error. Please try again later</h1>;
   }
 
   return (

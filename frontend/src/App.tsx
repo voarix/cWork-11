@@ -5,6 +5,7 @@ import Register from "./features/users/Register";
 import NavBar from "./components/NavBar/NavBar.tsx";
 import Login from "./features/users/Login.tsx";
 import Items from "./features/items/Items.tsx";
+import ItemFullView from "./features/items/ItemFullView.tsx";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/" element={<Items />} />
           <Route path="/items/:category_id" element={<Items />} />
           <Route path="/:category_id" element={<Items />} />
+          <Route path="/items/full-view/:id" element={<ItemFullView />} />
           <Route path="*" element={<h1>Not found page</h1>} />
         </Routes>
       </main>

@@ -7,6 +7,20 @@ const usersRouter = express.Router();
 
 usersRouter.post("/", async (req, res, next) => {
   try {
+    const phone = req.body.phoneNumber;
+
+    if (phone[0] !== "+") {
+      res.status(400).send({error: "Number must start with +"});
+      return
+    }
+
+    for (let i = 1; i < phone.length; i++) {
+      if (phone[i] < "0" || phone[i] > "9") {
+        res.status(400).send({error: "In phone number only numbers allowed. Example: +380991234567"});
+        return
+      }
+    }
+
     const user = new User({
       username: req.body.username,
       password: req.body.password,

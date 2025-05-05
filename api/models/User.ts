@@ -49,6 +49,7 @@ const UserSchema = new mongoose.Schema<
     type: String,
     required: true,
     unique: true,
+    maxlength: [15, "Phone number is too long"],
     validate: {
       validator: async function (value: string): Promise<boolean> {
         if (!this.isModified("phoneNumber")) return true;

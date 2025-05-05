@@ -1,10 +1,14 @@
-
 import { isAxiosError } from "axios";
-import type { GlobalError, LoginMutation, RegisterMutation, User, ValidationError } from "../../types";
+import type {
+  GlobalError,
+  LoginMutation,
+  RegisterMutation,
+  User,
+  ValidationError,
+} from "../../types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi.ts";
 import type { RootState } from "../../app/store.ts";
-
 
 export interface RegisterAndLoginResponse {
   user: User;

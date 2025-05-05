@@ -1,4 +1,3 @@
-
 import { createSlice } from "@reduxjs/toolkit";
 import { login, register } from "./usersThunks.ts";
 import type { GlobalError, User, ValidationError } from "../../types";

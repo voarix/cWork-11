@@ -18,6 +18,21 @@ export interface RegisterMutation {
   phoneNumber: string;
 }
 
+export interface Item {
+  _id: string;
+  title: string;
+  price: number;
+  image: string;
+  category: {
+    _id: string;
+    title: string;
+  };
+  seller: {
+    _id: string;
+    username: string;
+  };
+}
+
 export interface ValidationError {
   errors: {
     [key: string]: {

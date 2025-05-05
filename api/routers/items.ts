@@ -17,6 +17,11 @@ itemsRouter.get("/", async (req, res, next) => {
     const items = await Item.find(filter).populate("category", "title").populate("seller", "username").select("-description");
     res.send(items);
   } catch (e) {
+    if (e instanceof Error.CastError) {
+      res.status(400).send({ error: "Invalid category_id" });
+      return;
+    }
+
     next(e);
   }
 });

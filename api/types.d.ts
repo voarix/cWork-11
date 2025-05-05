@@ -5,3 +5,12 @@ export interface UserFields {
     phoneNumber: string;
     token: string;
 }
+
+export interface ItemWithoutId {
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+    category: string;
+    seller: string;
+}

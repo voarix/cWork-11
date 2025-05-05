@@ -8,8 +8,10 @@ interface CategoryState {
   fetchLoading: boolean;
 }
 
-export const selectCategories = (state: RootState) => state.categories.categories;
-export const selectCategoriesFetchLoading = (state: RootState) => state.categories.fetchLoading;
+export const selectCategories = (state: RootState) =>
+  state.categories.categories;
+export const selectCategoriesFetchLoading = (state: RootState) =>
+  state.categories.fetchLoading;
 
 const initialState: CategoryState = {
   categories: [],

@@ -33,6 +33,11 @@ export interface Item {
   };
 }
 
+export interface Category {
+  _id: string;
+  title: string;
+}
+
 export interface ValidationError {
   errors: {
     [key: string]: {

@@ -10,8 +10,10 @@ interface ItemsState {
 }
 
 export const selectItems = (state: RootState) => state.items.items;
-export const selectFetchItemsLoading = (state: RootState) => state.items.fetchLoading;
-export const selectFetchItemsError = (state: RootState) => state.items.fetchError;
+export const selectFetchItemsLoading = (state: RootState) =>
+  state.items.fetchLoading;
+export const selectFetchItemsError = (state: RootState) =>
+  state.items.fetchError;
 
 const initialState: ItemsState = {
   items: [],
@@ -23,21 +25,21 @@ const itemsSlice = createSlice({
   name: "items",
   initialState,
   reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(fetchAllItems.pending, (state) => {
         state.fetchLoading = true;
         state.fetchError = null;
       })
-      .addCase(fetchAllItems.fulfilled, (state, {payload: items}) => {
+      .addCase(fetchAllItems.fulfilled, (state, { payload: items }) => {
         state.items = items;
         state.fetchLoading = false;
       })
-      .addCase(fetchAllItems.rejected, (state, {payload: error}) => {
+      .addCase(fetchAllItems.rejected, (state, { payload: error }) => {
         state.fetchLoading = false;
         state.fetchError = error || null;
       });
-  }
+  },
 });
 
 export const itemsReducer = itemsSlice.reducer;

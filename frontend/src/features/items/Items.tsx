@@ -1,24 +1,39 @@
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { selectItems } from "./itemsSlice.ts";
-import { fetchAllItems } from "./itemsThunks.ts";
+import { selectFetchItemsLoading, selectItems } from "./itemsSlice.ts";
 import Categories from "../categories/Categories.tsx";
 import ItemList from "./components/ItemList.tsx";
+import {
+  selectCategories,
+  selectCategoriesFetchLoading,
+} from "../categories/categoriesSlice.ts";
+import Loading from "../../components/UI/Loading.tsx";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { fetchAllCategories } from "../categories/categoriesThunks.ts";
+import { fetchAllItems } from "./itemsThunks.ts";
 
 const Items = () => {
   const dispatch = useAppDispatch();
   const items = useAppSelector(selectItems);
+  const categories = useAppSelector(selectCategories);
+  const { category_id } = useParams();
 
   useEffect(() => {
-    dispatch(fetchAllItems());
-  }, [dispatch]);
+    dispatch(fetchAllItems(category_id));
+    dispatch(fetchAllCategories());
+  }, [fetchAllItems, dispatch, category_id, fetchAllCategories]);
 
-  console.log(items);
+  const categoryLoading = useAppSelector(selectCategoriesFetchLoading);
+  const itemLoading = useAppSelector(selectFetchItemsLoading);
+
+  if (categoryLoading || itemLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="grid grid-cols-5 grid-rows-5 gap-3 mt-10">
-      <Categories />
-      <ItemList />
+      <Categories categories={categories} />
+      <ItemList items={items} />
     </div>
   );
 };

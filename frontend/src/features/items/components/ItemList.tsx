@@ -1,17 +1,11 @@
-import { useAppDispatch, useAppSelector } from "../../../app/hooks";
-import { selectItems } from "../itemsSlice.ts";
-import { useEffect } from "react";
-import { fetchAllItems } from "../itemsThunks.ts";
 import ItemCard from "./ItemCard.tsx";
+import type { Item } from "../../../types";
 
-const ItemList = () => {
-  const dispatch = useAppDispatch();
-  const items = useAppSelector(selectItems);
+interface Props {
+  items: Item[];
+}
 
-  useEffect(() => {
-    dispatch(fetchAllItems());
-  }, [dispatch]);
-
+const ItemList: React.FC<Props> = ({ items }) => {
   return (
     <div className="col-span-3 grid grid-cols-2 gap-4">
       {items.map((item) => (

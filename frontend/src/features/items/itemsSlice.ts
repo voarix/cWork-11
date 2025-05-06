@@ -1,6 +1,11 @@
 import type { GlobalError, Item, ItemFull, ValidationError } from "../../types";
 import { createSlice } from "@reduxjs/toolkit";
-import { createNewItem, fetchAllItems, fetchItemById } from "./itemsThunks.ts";
+import {
+  createNewItem,
+  deleteItem,
+  fetchAllItems,
+  fetchItemById,
+} from "./itemsThunks.ts";
 import type { RootState } from "../../app/store.ts";
 
 interface ItemsState {
@@ -14,6 +19,9 @@ interface ItemsState {
 
   createItemLoading: boolean;
   createItemError: GlobalError | ValidationError | null;
+
+  deleteItemLoading: boolean;
+  deleteItemError: GlobalError | null;
 }
 
 export const selectItems = (state: RootState) => state.items.items;
@@ -32,6 +40,11 @@ export const selectCreateLoading = (state: RootState) =>
 export const selectCreateError = (state: RootState) =>
   state.items.createItemError;
 
+export const selectDeleteLoading = (state: RootState) =>
+  state.items.deleteItemLoading;
+export const selectDeleteError = (state: RootState) =>
+  state.items.deleteItemError;
+
 const initialState: ItemsState = {
   items: [],
   fetchLoading: false,
@@ -43,6 +56,9 @@ const initialState: ItemsState = {
 
   createItemLoading: false,
   createItemError: null,
+
+  deleteItemLoading: false,
+  deleteItemError: null,
 };
 
 const itemsSlice = createSlice({
@@ -87,6 +103,18 @@ const itemsSlice = createSlice({
       .addCase(createNewItem.rejected, (state, { payload: error }) => {
         state.createItemLoading = false;
         state.createItemError = error || null;
+      })
+
+      .addCase(deleteItem.pending, (state) => {
+        state.deleteItemLoading = true;
+        state.deleteItemError = null;
+      })
+      .addCase(deleteItem.fulfilled, (state) => {
+        state.deleteItemLoading = false;
+      })
+      .addCase(deleteItem.rejected, (state, { payload: error }) => {
+        state.deleteItemLoading = false;
+        state.deleteItemError = error || null;
       });
   },
 });

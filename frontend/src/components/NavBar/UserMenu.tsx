@@ -40,7 +40,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
 
       <button
         onClick={handeClick}
-        className="text-white hover:text-gray-300 focus:outline-none font-semibold"
+        className="text-white hover:text-gray-300 focus:outline-none font-semibold hover:cursor-pointer"
       >
         Hello, {user.username}
       </button>

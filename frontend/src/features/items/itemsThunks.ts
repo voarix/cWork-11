@@ -83,3 +83,24 @@ export const createNewItem = createAsyncThunk<
     throw error;
   }
 });
+
+export const deleteItem = createAsyncThunk<
+  void,
+  string,
+  { rejectValue: GlobalError; state: RootState }
+>("items/deleteItem", async (id, { rejectWithValue, getState }) => {
+  try {
+    const token = getState().users.user?.token;
+
+    await axiosApi.delete(`/items/${id}`, {
+      headers: {
+        Authorization: token,
+      },
+    });
+  } catch (error) {
+    if (isAxiosError(error) && error.response) {
+      return rejectWithValue(error.response.data);
+    }
+    throw error;
+  }
+});

@@ -4,6 +4,7 @@ import { useAppDispatch } from "../../app/hooks.ts";
 import { logout } from "../../features/users/usersThunks.ts";
 import { unsetUser } from "../../features/users/usersSlice.ts";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 interface Props {
   user: User;
@@ -29,7 +30,14 @@ const UserMenu: React.FC<Props> = ({ user }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative flex space-x-10">
+      <Link
+        to="items/new-item"
+        className="text-white hover:text-gray-300 focus:outline-none font-semibold"
+      >
+        New Item
+      </Link>
+
       <button
         onClick={handeClick}
         className="text-white hover:text-gray-300 focus:outline-none font-semibold"

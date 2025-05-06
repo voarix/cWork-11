@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
 import { selectLoginError, selectLoginLoading } from "./usersSlice.ts";
 import { login } from "./usersThunks.ts";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { LoginMutation } from "../../types";
 import Loading from "../../components/UI/Loading.tsx";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -25,8 +26,10 @@ const Login = () => {
     e.preventDefault();
     try {
       await dispatch(login(form)).unwrap();
+      toast.success("Login is successful");
       navigate("/");
     } catch (error) {
+      toast.success("Login is failed");
       console.error(error);
     }
   };
@@ -121,6 +124,12 @@ const Login = () => {
                 </button>
               </div>
             </form>
+            <Link
+              to="/register"
+              className="font-semibold text-indigo-600 hover:text-indigo-500"
+            >
+              Not have an account? Sign up
+            </Link>
           </div>
         </div>
       )}

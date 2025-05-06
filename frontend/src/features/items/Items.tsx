@@ -1,5 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
-import { selectFetchItemsLoading, selectItems } from "./itemsSlice.ts";
+import {
+  selectFetchItemsError,
+  selectFetchItemsLoading,
+  selectItems,
+} from "./itemsSlice.ts";
 import Categories from "../categories/Categories.tsx";
 import ItemList from "./components/ItemList.tsx";
 import {
@@ -15,7 +19,7 @@ import { fetchAllItems } from "./itemsThunks.ts";
 
 const Items = () => {
   const dispatch = useAppDispatch();
-  const errorItems = useAppSelector(selectFetchItemsLoading);
+  const errorItems = useAppSelector(selectFetchItemsError);
   const errorCategories = useAppSelector(selectCategoriesError);
   const items = useAppSelector(selectItems);
   const categories = useAppSelector(selectCategories);

@@ -1,6 +1,6 @@
-import type { GlobalError, Item, ItemFull } from "../../types";
+import type { GlobalError, Item, ItemFull, ValidationError } from "../../types";
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllItems, fetchItemById } from "./itemsThunks.ts";
+import { createNewItem, fetchAllItems, fetchItemById } from "./itemsThunks.ts";
 import type { RootState } from "../../app/store.ts";
 
 interface ItemsState {
@@ -11,6 +11,9 @@ interface ItemsState {
   oneItem: ItemFull | null;
   fetchOneLoading: boolean;
   fetchOneError: GlobalError | null;
+
+  createItemLoading: boolean;
+  createItemError: GlobalError | ValidationError | null;
 }
 
 export const selectItems = (state: RootState) => state.items.items;
@@ -24,13 +27,22 @@ export const selectOneItemLoading = (state: RootState) =>
   state.items.fetchLoading;
 export const selectOneItemError = (state: RootState) => state.items.fetchError;
 
+export const selectCreateLoading = (state: RootState) =>
+  state.items.createItemLoading;
+export const selectCreateError = (state: RootState) =>
+  state.items.createItemError;
+
 const initialState: ItemsState = {
   items: [],
   fetchLoading: false,
   fetchError: null,
+
   oneItem: null,
   fetchOneLoading: false,
   fetchOneError: null,
+
+  createItemLoading: false,
+  createItemError: null,
 };
 
 const itemsSlice = createSlice({
@@ -63,6 +75,18 @@ const itemsSlice = createSlice({
       .addCase(fetchItemById.rejected, (state, { payload: error }) => {
         state.fetchOneLoading = false;
         state.fetchOneError = error || null;
+      })
+
+      .addCase(createNewItem.pending, (state) => {
+        state.createItemLoading = true;
+        state.createItemError = null;
+      })
+      .addCase(createNewItem.fulfilled, (state) => {
+        state.createItemLoading = false;
+      })
+      .addCase(createNewItem.rejected, (state, { payload: error }) => {
+        state.createItemLoading = false;
+        state.createItemError = error || null;
       });
   },
 });

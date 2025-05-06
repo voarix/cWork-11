@@ -36,7 +36,7 @@ const ItemFullView = () => {
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
             {item.image && (
               <img
-                className="w-full h-100 object-cover"
+                className="w-2/3 h-100 object-cover mx-auto rounded-2xl"
                 src={`${apiUrl}/${item.image}`}
                 alt={item.title}
               />
@@ -56,9 +56,10 @@ const ItemFullView = () => {
                 </h3>
                 <p>Username: {item.seller?.username}</p>
                 <p>Display Name: {item.seller?.displayName}</p>
-                <p>Phone Number: {item.seller?.phoneNumber}</p>
+                <p>Phone Number: +{item.seller?.phoneNumber}</p>
               </div>
             </div>
+            {item.isSeller && <p>asdasdf</p>}
           </div>
         </div>
       )}

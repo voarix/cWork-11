@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks.ts";
 import { selectRegisterError, selectRegisterLoading } from "./usersSlice.ts";
 import { register } from "./usersThunks.ts";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { RegisterMutation } from "../../types";
 import Loading from "../../components/UI/Loading.tsx";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +23,7 @@ const Register = () => {
     "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 border-red-500";
   const defaultInputClass =
     "block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6";
+
   const getFieldError = (fieldName: string) => {
     try {
       return error?.errors[fieldName].message;
@@ -39,8 +41,10 @@ const Register = () => {
     e.preventDefault();
     try {
       await dispatch(register(form)).unwrap();
+      toast.success("Register is successful");
       navigate("/");
     } catch (error) {
+      toast.success("Register is failed");
       console.error(error);
     }
   };
@@ -209,6 +213,12 @@ const Register = () => {
                 </button>
               </div>
             </form>
+            <Link
+              to="/login"
+              className="font-semibold text-indigo-600 hover:text-indigo-500"
+            >
+              Have an account? Sign in
+            </Link>
           </div>
         </div>
       )}

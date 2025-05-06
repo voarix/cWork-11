@@ -46,6 +46,15 @@ export interface ItemFull {
     displayName: string;
     phoneNumber: string;
   };
+  isSeller: boolean;
+}
+
+export interface ItemMutation {
+  title: string;
+  description: string;
+  price: number | string;
+  image: File | null;
+  category: string;
 }
 
 export interface Category {
